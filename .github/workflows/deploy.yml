@@ -46,8 +46,7 @@ jobs:
 
             # contract addresses enviroment variables
 
-            
-
+        
             # set elysd config
             $ELYSD config keyring-backend test
             $ELYSD config node $NODE
@@ -76,16 +75,16 @@ jobs:
             echo $OPTIONS
 
             # store and init/migrate financial snapshot contract
-            txhash=$(echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm store $OPTIONS --sequence $(($sequence + 1)) artifacts/financial_snapshot_contract.wasm | extract_txhash)
+            txhash=$(echo "$ELYSD tx wasm store $OPTIONS --sequence $(($sequence + 1)) artifacts/financial_snapshot_contract.wasm | extract_txhash)
             echo "fs store txhash: $txhash"
             wait_for_tx $txhash
             codeid=$($ELYSD q tx $txhash --node $NODE | extract_code_id)
             echo "fs code id: $codeid"
             if [ -n "$FS_CONTRACT_ADDRESS" ]; then
-                txhash=$( echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm migrate $OPTIONS --sequence $(($sequence + 2)) $FS_CONTRACT_ADDRESS $codeid '{}' | extract_txhash)
+                txhash=$( echo "$ELYSD tx wasm migrate $OPTIONS --sequence $(($sequence + 2)) $FS_CONTRACT_ADDRESS $codeid '{}' | extract_txhash)
                 echo "fs migrate txhash: $txhash"
             else
-                txhash=$( echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm init $OPTIONS --sequence $(($sequence + 2)) --label "fs" --admin $NAME $codeid '{}' | extract_txhash)
+                txhash=$( echo "$ELYSD tx wasm init $OPTIONS --sequence $(($sequence + 2)) --label "fs" --admin $NAME $codeid '{}' | extract_txhash)
                 echo "fs init txhash: $txhash"
             fi
             wait_for_tx $txhash
