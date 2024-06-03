@@ -60,6 +60,7 @@ jobs:
 
             # get account and sequence number
             account_number=$($ELYSD q account $user_address --node $NODE | extract_account_number)
+            exit 1
             sequence=$($ELYSD q account $NAME --node $NODE | extract_sequence)
             echo "account_number: $account_number"
             echo "sequence: $sequence"
