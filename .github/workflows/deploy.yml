@@ -16,11 +16,10 @@ jobs:
           ./scripts/build.sh
       - name: Downloading elys
         run: |
-            ELYSD=/tmp/elysd
             URL=https://github.com/elys-network/elys/releases/download/v0.29.26/elysd-v0.29.26-linux-amd64
             # download elysd and binary to path
-            wget $URL -O $ELYSD
-            chmod +x $ELYSD
+            wget $URL -O .
+            chmod +x elysd
       - name: Deploy
         run: |
             # helper functions
