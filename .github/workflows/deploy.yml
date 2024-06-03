@@ -58,6 +58,8 @@ jobs:
 
             user_address=$(echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD keys show $NAME -a)
 
+            echo "EPA"
+
             # get account and sequence number
             account_number=$($ELYSD q account $user_address --node $NODE | extract_account_number)
             sequence=$($ELYSD q account $NAME --node $NODE | extract_sequence)
