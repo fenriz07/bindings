@@ -16,10 +16,9 @@ jobs:
           wget $URL -O elysd
           chmod +x elysd
           ls
-      - name: Compile with Docker
-        run: |
-          # build wasm files
-          ./scripts/build.sh
+      #- name: Compile with Docker
+      #    # build wasm files
+      #    ./scripts/build.sh
       - name: Deploy
         run: |
             # helper functions
@@ -54,9 +53,12 @@ jobs:
             # save private keys to files
             echo "${{ secrets.PRIVATE_KEY_MALLORCA }}" > /tmp/private_key_mallorca.txt
             # recover keys
+
+            cat /tmp/private_key_mallorca.txt
+
             echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD keys import mallorca --keyring-backend test /tmp/private_key_mallorca.txt
 
-            user_address=$(echo ${{ secrets.PASSPHRASE_MALLORCA }} | $ELYSD keys show $NAME -a)
+            user_address=$(echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD keys show $NAME -a)
 
             # get account and sequence number
             account_number=$($ELYSD q account $user_address --node $NODE | extract_account_number)
