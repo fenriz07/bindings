@@ -10,11 +10,11 @@ jobs:
     environment: devnet
     steps:
       - uses: actions/checkout@master
-            - name: Downloading elys
-            run: |
-                URL=https://github.com/elys-network/elys/releases/download/v0.29.26/elysd-v0.29.26-linux-amd64
-                wget $URL -O elysd
-                chmod +x elysd
+      - name: Downloading elys
+        run: |
+          URL=https://github.com/elys-network/elys/releases/download/v0.29.26/elysd-v0.29.26-linux-amd64
+          wget $URL -O elysd
+          chmod +x elysd
       - name: Compile with Docker
         run: |
           # build wasm files
