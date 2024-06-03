@@ -16,9 +16,9 @@ jobs:
           wget $URL -O elysd
           chmod +x elysd
           ls
-      #- name: Compile with Docker
-      #    # build wasm files
-      #    ./scripts/build.sh
+      - name: Compile with Docker
+          # build wasm files
+          ./scripts/build.sh
       - name: Deploy
         run: |
             # helper functions
@@ -64,9 +64,6 @@ jobs:
 
             echo "account_number: $account_number"
             echo "sequence: $sequence"
-            echo "EPA"
-            echo $user_address
-            echo $NODE
 
 
             # environment variables
