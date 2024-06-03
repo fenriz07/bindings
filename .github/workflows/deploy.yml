@@ -16,10 +16,10 @@ jobs:
           wget $URL -O elysd
           chmod +x elysd
           ls
-     # - name: Compile with Docker
-     #     # build wasm files
-     #   run: |
-     #       ./scripts/build.sh
+      - name: Compile with Docker
+          # build wasm files
+        run: |
+            ./scripts/build.sh
       - name: Deploy
         run: |
             # helper functions
@@ -28,10 +28,13 @@ jobs:
             extract_contract_address() { awk -F 'key: _contract_address|value: ' '/key: _contract_address/ { getline; gsub(/"/, "", $2); print $2; exit }'; }
             extract_account_number() { awk -F 'account_number: ' '/account_number:/ { gsub(/"/, "", $2); print $2 + 0; exit; }'; }
             extract_sequence() { awk -F 'sequence: ' '/sequence:/ { gsub(/"/, "", $2); print $2 + 0; exit; }'; }
+            
+            ELYSD=./elysd
+
             wait_for_tx() {
                 local txhash=$1
                 # loop until query tx cli does not fail
-                while ! elysd q tx $txhash --node "$NODE" &> /dev/null; do
+                while ! $ELYSD q tx $txhash --node "$NODE" &> /dev/null; do
                     echo "Waiting for the transaction $txhash to be included in a block..."
                     sleep 0.5
                 done
@@ -43,7 +46,7 @@ jobs:
 
             # contract addresses enviroment variables
 
-            ELYSD=./elysd
+            
 
             # set elysd config
             $ELYSD config keyring-backend test
@@ -68,7 +71,7 @@ jobs:
 
 
             # environment variables
-            OPTIONS="--from $NAME --gas auto --gas-adjustment 1.3 --fees 300000uelys -y --account-number $account_number -b async --log_level trace --trace"
+            OPTIONS="--from $NAME --node $NODE --chain-id elysdevnet-1 --keyring-backend=test --gas auto --gas-adjustment 1.3 --fees 300000uelys -y --account-number $account_number -b async --log_level trace --trace"
 
             echo $OPTIONS
 
