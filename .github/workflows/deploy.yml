@@ -56,7 +56,7 @@ jobs:
             # recover keys
             echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD keys import mallorca --keyring-backend test /tmp/private_key_mallorca.txt
 
-            user_address=$($ELYSD keys show $NAME -a)
+            user_address=$(echo ${{ secrets.PASSPHRASE_MALLORCA }} | $ELYSD keys show $NAME -a)
 
             # get account and sequence number
             account_number=$($ELYSD q account $user_address --node $NODE | extract_account_number)
