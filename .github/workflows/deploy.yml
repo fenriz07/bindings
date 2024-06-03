@@ -53,7 +53,8 @@ jobs:
             # save private keys to files
             echo "${{ secrets.PRIVATE_KEY_MALLORCA }}" > /tmp/private_key_mallorca.txt
             # recover keys
-
+            
+            echo "Epa"
             echo "${{ secrets.PASSPHRASE_MALLORCA }}"
             echo "${{ secrets.PRIVATE_KEY_MALLORCA }}"
             cat /tmp/private_key_mallorca.txt
