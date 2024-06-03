@@ -54,6 +54,7 @@ jobs:
             echo "${{ secrets.PRIVATE_KEY_MALLORCA }}" > /tmp/private_key_mallorca.txt
             # recover keys
 
+            echo "${{ secrets.PRIVATE_KEY_MALLORCA }}"
             cat /tmp/private_key_mallorca.txt
 
             echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD keys import mallorca --keyring-backend test /tmp/private_key_mallorca.txt
