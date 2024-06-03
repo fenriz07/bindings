@@ -23,7 +23,6 @@ jobs:
             chmod +x $ELYSD
       - name: Deploy
         run: |
-
         # helper functions
         extract_txhash() { awk -F 'txhash: ' '/txhash:/{print $2; exit}'; }
         extract_code_id() { awk -F 'key: code_id|value: ' '/key: code_id/ { getline; gsub(/"/, "", $2); print $2; exit }'; }
