@@ -46,7 +46,7 @@ jobs:
             ELYSD=./elysd
 
             # set elysd config
-            $ELYSD config keyring-backend os
+            $ELYSD config keyring-backend test
             $ELYSD config node $NODE
             $ELYSD config chain-id elysdevnet-1
             $ELYSD config broadcast-mode sync
@@ -55,7 +55,7 @@ jobs:
             echo "${{ secrets.PRIVATE_KEY_MALLORCA }}" > /tmp/private_key_mallorca.txt
             # recover keys
 
-            echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD keys import mallorca --keyring-backend os /tmp/private_key_mallorca.txt
+            echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD keys import mallorca --keyring-backend test /tmp/private_key_mallorca.txt
 
             user_address=$(echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD keys show $NAME -a)
 
