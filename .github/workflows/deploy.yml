@@ -18,7 +18,7 @@ jobs:
           ls
       - name: Compile with Docker
           # build wasm files
-          run: |
+        run: |
             ./scripts/build.sh
       - name: Deploy
         run: |
