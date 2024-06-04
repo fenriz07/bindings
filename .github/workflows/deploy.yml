@@ -40,6 +40,16 @@ jobs:
                 done
             }
 
+            exit_if_tx_is_empty(){
+                local txhash=$1
+
+                if [[ -z $txhash ]]
+                then
+                    echo "Error: thereisn't a txhash"
+                    exit(1)
+                fi
+            }
+
             # environment variables
             NODE=https://rpc.devnet.elys.network:443
             NAME=mallorca
@@ -80,6 +90,7 @@ jobs:
             # store and init/migrate financial snapshot contract
             txhash=$(echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm store $OPTIONS --sequence $(($sequence + 1)) artifacts/financial_snapshot_contract.wasm | extract_txhash)
             echo "fs store txhash: $txhash"
+            exit_if_tx_is_empty $txhash
             wait_for_tx $txhash
             codeid=$($ELYSD q tx $txhash --node $NODE | extract_code_id)
             echo "fs code id: $codeid"
@@ -91,6 +102,8 @@ jobs:
                 txhash=$( echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm init $OPTIONS --sequence $(($sequence + 2)) --label "fs" --admin $NAME $codeid '{}' | extract_txhash)
                 echo "fs init txhash: $txhash"
             fi
+
+            exit_if_tx_is_empty $txhash
             wait_for_tx $txhash
             export fs_contract_address=$($ELYSD q tx $txhash --node $NODE | extract_contract_address)
             echo "fs_contract_address: $fs_contract_address"
@@ -98,6 +111,7 @@ jobs:
             # store and init/migrate trade shield contract
             txhash=$(echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm store $OPTIONS --sequence $(($sequence + 3)) artifacts/trade_shield_contract.wasm | extract_txhash)
             echo "ts store txhash: $txhash"
+            exit_if_tx_is_empty $txhash
             wait_for_tx $txhash
             codeid=$($ELYSD q tx $txhash --node $NODE | extract_code_id)
             echo "ts code id: $codeid"
@@ -113,14 +127,18 @@ jobs:
                 }' | extract_txhash)
                 echo "ts init txhash: $txhash"
             fi
+            exit_if_tx_is_empty $txhash
             wait_for_tx $txhash
             export ts_contract_address=$($ELYSD q tx $txhash --node $NODE | extract_contract_address)
             echo "ts_contract_address: $ts_contract_address"
 
             # store and init/migrate account history contract
             txhash=$(echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm store artifacts/account_history_contract.wasm $OPTIONS --sequence $(($sequence + 5)) | extract_txhash)
+            
             echo "ah store txhash: $txhash"
+            exit_if_tx_is_empty $txhash
             wait_for_tx $txhash
+
             codeid=$($ELYSD q tx $txhash --node $NODE | extract_code_id)
             echo "ah code id: $codeid"
             if [ -n "$AH_CONTRACT_ADDRESS" ]; then
@@ -139,6 +157,8 @@ jobs:
                 }' | extract_txhash)
                 echo "ah init txhash: $txhash"
             fi
+
+            exit_if_tx_is_empty $txhash
             wait_for_tx $txhash
             ah_contract_address=$($ELYSD q tx $txhash --node $NODE | extract_contract_address)
             echo "ah_contract_address: $ah_contract_address"
