@@ -12,15 +12,6 @@ jobs:
       - uses: actions/checkout@master
       - name: Downloading elys
         run: |
-
-        exit_if_tx_is_empty() {
-            local tx=$1
-            if [[ -z "$tx" ]]; then
-                echo "Error: there is not a txhash"
-                exit(1)
-            fi
-        }
-
           URL=https://github.com/elys-network/elys/releases/download/v0.29.26/elysd-v0.29.26-linux-amd64
           wget $URL -O elysd
           chmod +x elysd
@@ -53,7 +44,7 @@ jobs:
                 local tx=$1
                 if [[ -z "$tx" ]]; then
                     echo "Error: there is not a txhash"
-                    exit(1)
+                    exit 1
                 fi
             }
 
