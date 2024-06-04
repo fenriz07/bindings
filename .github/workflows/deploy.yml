@@ -40,10 +40,9 @@ jobs:
                 done
             }
 
-            exit_if_tx_is_empty(){
-                local txhash=$1
-
-                if [[ -z "$txhash" ]];then
+            exit_if_tx_is_empty() {
+                local tx=$1
+                if [[ -z "$tx" ]]; then
                     echo "Error: there is not a txhash"
                     exit(1)
                 fi
