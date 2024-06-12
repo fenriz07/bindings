@@ -83,7 +83,7 @@ jobs:
             ##contracts
             FS_CONTRACT_ADDRESS=elys1xxr6slevyf6ka8ksv332a4s209k903c8tn2hmnku6xlkvl32skdqzue3pz
             TS_CONTRACT_ADDRESS=elys1na006urnqhzw0ytsvmar6dc3skd3w0vy0dyqmm2zwsnyj0xp4gvsc045nw
-            ##AH_CONTRACT_ADDRESS=
+            AH_CONTRACT_ADDRESS=elys17kea7dq3zeatr33rdueykva4d2h8nzgq3g83qhjra9u339v8mv9sqalclq
 
             # store and init/migrate financial snapshot contract
             txhash=$(echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm store $OPTIONS --sequence $(($sequence + 1)) artifacts/financial_snapshot_contract.wasm | extract_txhash)
