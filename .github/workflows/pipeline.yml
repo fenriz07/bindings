@@ -36,30 +36,4 @@ jobs:
           cargo test --verbose
         working-directory: .
   deploy:
-    name: Release
-    runs-on: ubuntu-latest
-    environment: devnet
-    steps:
-      - uses: actions/checkout@v4
-      - name: Downloading elys
-        run: |
-          URL=https://github.com/elys-network/elys/releases/download/v0.30.0/elysd-v0.30.0-linux-amd64
-          wget $URL -O elysd
-          chmod +x elysd
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-      - name: Compile
-        run: |
-            VERSION="0.1.0"
-            sed -i "s/^version = .*/version = \"$VERSION\"/" contracts/account-history-contract/Cargo.toml
-            sed -i "s/^version = .*/version = \"$VERSION\"/" contracts/trade-shield-contract/Cargo.toml
-            sed -i "s/^version = .*/version = \"$VERSION\"/" contracts/financial-snapshot-contract/Cargo.toml
-            cargo update
-            
-            docker run --rm -v "$(pwd)":/code \
-            --mount type=volume,source="$(basename "$(pwd)")_cache",target=/target \
-            --mount type=volume,source=registry_cache,target=/usr/local/cargo/registry \
-            cosmwasm/workspace-optimizer:0.14.0
+    uses: fenriz07/binding-workflow/deploy-devnet.yml@master
