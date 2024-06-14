@@ -36,5 +36,4 @@ jobs:
           cargo test --verbose
         working-directory: .
   deploy:
-    name: Deploy
     uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@master
