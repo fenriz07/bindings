@@ -15,6 +15,7 @@ jobs:
           toolchain: stable
       - name: Build 
         run: |
+          echo "epa"
           cargo build --verbose
         working-directory: .
   test:
