@@ -40,7 +40,7 @@ jobs:
     #with:
     #  node: https://rpc.devnet.elys.network:443
     #  chainID: elysdevnet-1
-    #  from: mallorca
+    #  from: mallorca 
     #  fs_contract_addrs: x 
     #  ts_contract_addrs: x 
     #  ah_contract_addrs: x   
