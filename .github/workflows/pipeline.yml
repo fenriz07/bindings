@@ -15,6 +15,7 @@ jobs:
           toolchain: stable
       - name: Build 
         run: |
+          echo ${{github.base.ref}}
           cargo build --verbose
         working-directory: .
   test:
