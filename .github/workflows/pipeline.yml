@@ -35,6 +35,7 @@ jobs:
         run: |
           cargo test --verbose
         working-directory: .
-  deploy devnet:
+  deploy:
+    name: devnet
     if: ${GITHUB_HEAD_REF} == 'devnet'
     uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@devnet
