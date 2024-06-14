@@ -15,7 +15,6 @@ jobs:
           toolchain: stable
       - name: Build 
         run: |
-          echo ${{ github.ref }}
           cargo build --verbose
         working-directory: .
   test:
@@ -36,5 +35,5 @@ jobs:
         working-directory: .
   deploy:
     name: deploy in devnet
-    if:  github.base.ref == 'devnet'
+    if:  github.ref == 'refs/heads/devnet'
     uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@devnet
