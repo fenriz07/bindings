@@ -1,8 +1,6 @@
 name: Pipeline
 on:
   push:
-    branches:
-      - devnet
 jobs:
   build:
     name: Build
@@ -37,5 +35,5 @@ jobs:
         working-directory: .
   deploy:
     name: deploy in devnet
-    if: ${{github.ref}} == 'devnet'
+    if:  github.base.ref == 'devnet'
     uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@devnet
