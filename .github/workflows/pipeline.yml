@@ -1,8 +1,7 @@
 name: Pipeline
 on:
   push:
-    branches:
-      - devnet
+  
 jobs:
   build:
     name: Build
@@ -36,4 +35,8 @@ jobs:
           cargo test --verbose
         working-directory: .
   deploy:
-    uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@master
+   if:
+      contains('
+        devnet
+      ', ${{ github.head_ref || github.ref_name }})
+    uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@${{ github.head_ref || github.ref_name }}
