@@ -1,8 +1,7 @@
 name: Pipeline
 on:
   push:
-    branches:
-      - devnet
+
 jobs:
   build:
     name: Build
