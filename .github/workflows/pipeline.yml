@@ -37,5 +37,5 @@ jobs:
         working-directory: .
   deploy:
     name: deploy in devnet
-    if: ${GITHUB_HEAD_REF} == 'devnet'
+    if: ${{GITHUB_HEAD_REF}} == 'devnet'
     uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@devnet
