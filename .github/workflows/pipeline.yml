@@ -42,8 +42,8 @@ jobs:
     #  chainID: elysdevnet-1
     #  from: mallorca
     #  fs_contract_addrs: x 
-    #  ts_contract_addrs: x
-    #  ah_contract_addrs: x 
+    #  ts_contract_addrs: x 
+    #  ah_contract_addrs: x  
     
     #secrets:
     #  PRIVATE_KEY: ${{ secrets.envPAT }}
