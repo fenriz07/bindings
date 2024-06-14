@@ -36,4 +36,4 @@ jobs:
           cargo test --verbose
         working-directory: .
   deploy:
-    uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@${{ github.head_ref || github.ref_name }}
+    uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@$GITHUB_REF_NAME
