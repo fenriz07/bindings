@@ -34,7 +34,7 @@ jobs:
           cargo test --verbose
         working-directory: .
   deploy:
-    name: deploy in devnet
+    name: devnet
     if:  github.ref == 'refs/heads/devnet'
     uses: fenriz07/binding-workflow/.github/workflows/deploy.yml@devnet
     #with:
@@ -42,7 +42,7 @@ jobs:
     #  chainID: elysdevnet-1 
     #  from: mallorca  
     #  fs_contract_addrs: x  
-    #  ts_contract_addrs: x 
+    #  ts_contract_addrs: x  d
     #  ah_contract_addrs: x     d
     
     #secrets:
