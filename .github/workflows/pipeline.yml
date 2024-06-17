@@ -127,6 +127,10 @@ jobs:
           TS_CONTRACT_ADDRESS=${{vars.TS_CONTRACT_ADDRESS}}
           AH_CONTRACT_ADDRESS=${{vars.AH_CONTRACT_ADDRESS}}
 
+          echo "fs:" $FS_CONTRACT_ADDRESS
+          echo "ts:" $TS_CONTRACT_ADDRESS
+          echo "ah:" $AH_CONTRACT_ADDRESS
+
           # store and init/migrate financial snapshot contract
           txhash=$(echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm store $OPTIONS --sequence $(($sequence + 1)) artifacts/financial_snapshot_contract.wasm | extract_txhash)
           echo "fs store txhash: $txhash"
