@@ -139,7 +139,7 @@ jobs:
           codeid=$($ELYSD q tx $txhash --node $NODE | extract_code_id)
           echo "fs code id: $codeid"
         
-          if [ "$FS_CONTRACT_ADDRESS" != "empty"]; then
+          if [ "$FS_CONTRACT_ADDRESS" != "empty" ]; then
               txhash=$( echo "${{ secrets.PASSPHRASE_MALLORCA }}" | $ELYSD tx wasm migrate $OPTIONS --sequence $(($sequence + 2)) $FS_CONTRACT_ADDRESS $codeid '{}' | extract_txhash)
               echo "fs migrate txhash: $txhash"
           else
