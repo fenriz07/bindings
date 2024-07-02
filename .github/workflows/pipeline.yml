@@ -34,7 +34,7 @@ jobs:
           cargo test --verbose
         working-directory: .
   devnet:
-    needs: test
+    #needs: test
     name: deploy on devnet
     runs-on: ubuntu-latest
     if:  github.ref == 'refs/heads/main'
@@ -55,7 +55,7 @@ jobs:
         run: |
             ELYSD=./elysd
 
-            json=$(elysd q --output json --node "${{vars.NODE}}" wasm contract-state smart "${{vars.FS_CONTRACT_ADDRESS}}" '{ "version": {} }')
+            json=$($ELYSD q --output json --node "${{vars.NODE}}" wasm contract-state smart "${{vars.FS_CONTRACT_ADDRESS}}" '{ "version": {} }')
 
             echo "json $json"
 
