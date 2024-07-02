@@ -53,30 +53,32 @@ jobs:
           toolchain: stable
       - name: Compile
         run: |
-            ELYSD=./elysd
+            getNewVersionBYContract(){
 
-            json=$($ELYSD q --output json --node "${{vars.NODE}}" wasm contract-state smart "${{vars.FS_CONTRACT_ADDRESS}}" '{ "version": {} }')
+              ELYSD=./elysd
+              json=$($ELYSD q --output json --node "${{vars.NODE}}" wasm contract-state smart "$1" '{ "version": {} }')
+              echo "Response json: $json"
+              VERSION=$(echo $json | jq -r ".data.version")
+              echo "Current version: $VERSION"
+              
+              # Extract the major, minor, and patch versions
+              version_parts=(${VERSION//./ })
+              major=${version_parts[0]}
+              minor=${version_parts[1]}
+              patch=${version_parts[2]}
 
-            echo "json $json"
+              # Increment the minor version
+              minor=$((minor + 1))
 
-            version=$(echo $json | jq -r ".data.version")
+              # Update the version string
+              VERSION="$major.$minor.$patch"
 
-            echo "version: $version"
+              return VERSION
+            }
 
-             # Extract the major, minor, and patch versions
-            version_parts=(${version//./ })
-            major=${version_parts[0]}
-            minor=${version_parts[1]}
-            patch=${version_parts[2]}
+            accountHistoryContactVersion=$(getNewVersionBYContract ${{vars.AH_CONTRACT_ADDRESS}})
 
-            # Increment the patch version
-            minor=$((minor + 1))
-
-            # Update the version string
-            new_version="$major.$minor.$patch"
-
-            # Print the updated version number
-            echo "New version number: $new_version"
+            echo "accountHistoryContactVersion $accountHistoryContactVersion"
 
             exit 1
             VERSION=$(cat .version)
