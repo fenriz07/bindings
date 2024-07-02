@@ -59,9 +59,7 @@ jobs:
 
               ELYSD=./elysd
               local json=$($ELYSD q --output json --node "${{vars.NODE}}" wasm contract-state smart "$contractAddress" '{ "version": {} }')
-              echo "Response json: $json"
               local VERSION=$(echo $json | jq -r ".data.version")
-              echo "Current version: $VERSION"
               
               # Extract the major, minor, and patch versions
               local version_parts=(${VERSION//./ })
