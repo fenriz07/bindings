@@ -57,11 +57,8 @@ jobs:
 
               local contractAddress=$1
 
-              echo "contrato: $contractAddress "
-
               ELYSD=./elysd
               local json=$($ELYSD q --output json --node "${{vars.NODE}}" wasm contract-state smart "$contractAddress" '{ "version": {} }')
-              echo "response json $json"
               local VERSION=$(echo $json | jq -r ".data.version")
               
               # Extract the major, minor, and patch versions
@@ -83,9 +80,9 @@ jobs:
             #tradeShieldContractVersion=$(getNewVersionBYContract ${{vars.TS_CONTRACT_ADDRESS}})
             #financialSnapshotContractVersion=$(getNewVersionBYContract ${{vars.FS_CONTRACT_ADDRESS}})
 
-            echo "new accountHistoryContractVersion: $accountHistoryContactVersion"
-            #echo "new tradeShieldContractVersion: $tradeShieldContractVersion"
-            #echo "new financialSnapshotContractVersion: $financialSnapshotContractVersion"
+            echo "new accountHistoryContractVersion: $accountHistoryContractVersion"
+            echo "new tradeShieldContractVersion: $tradeShieldContractVersion"
+            echo "new financialSnapshotContractVersion: $financialSnapshotContractVersion"
 
             exit 1
             VERSION=$(cat .version)
