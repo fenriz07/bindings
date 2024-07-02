@@ -84,8 +84,6 @@ jobs:
             echo "new tradeShieldContractVersion: $tradeShieldContractVersion"
             echo "new financialSnapshotContractVersion: $financialSnapshotContractVersion"
 
-            exit 1
-            VERSION=$(cat .version)
             sed -i "s/^version = .*/version = \"$accountHistoryContractVersion\"/" contracts/account-history-contract/Cargo.toml
             sed -i "s/^version = .*/version = \"$tradeShieldContractVersion\"/" contracts/trade-shield-contract/Cargo.toml
             sed -i "s/^version = .*/version = \"$financialSnapshotContractVersion\"/" contracts/financial-snapshot-contract/Cargo.toml
