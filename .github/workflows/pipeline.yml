@@ -77,8 +77,8 @@ jobs:
             }
 
             accountHistoryContractVersion=$(getNewVersionBYContract ${{vars.AH_CONTRACT_ADDRESS}})
-            #tradeShieldContractVersion=$(getNewVersionBYContract ${{vars.TS_CONTRACT_ADDRESS}})
-            #financialSnapshotContractVersion=$(getNewVersionBYContract ${{vars.FS_CONTRACT_ADDRESS}})
+            tradeShieldContractVersion=$(getNewVersionBYContract ${{vars.TS_CONTRACT_ADDRESS}})
+            financialSnapshotContractVersion=$(getNewVersionBYContract ${{vars.FS_CONTRACT_ADDRESS}})
 
             echo "new accountHistoryContractVersion: $accountHistoryContractVersion"
             echo "new tradeShieldContractVersion: $tradeShieldContractVersion"
