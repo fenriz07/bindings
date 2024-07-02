@@ -55,20 +55,22 @@ jobs:
         run: |
             getNewVersionBYContract(){
 
+              local contractAddress=$1
+
               ELYSD=./elysd
-              json=$($ELYSD q --output json --node "${{vars.NODE}}" wasm contract-state smart "$1" '{ "version": {} }')
+              local json=$($ELYSD q --output json --node "${{vars.NODE}}" wasm contract-state smart "$contractAddress" '{ "version": {} }')
               echo "Response json: $json"
-              VERSION=$(echo $json | jq -r ".data.version")
+              local VERSION=$(echo $json | jq -r ".data.version")
               echo "Current version: $VERSION"
               
               # Extract the major, minor, and patch versions
-              version_parts=(${VERSION//./ })
-              major=${version_parts[0]}
-              minor=${version_parts[1]}
-              patch=${version_parts[2]}
+              local version_parts=(${VERSION//./ })
+              local major=${version_parts[0]}
+              local minor=${version_parts[1]}
+              local patch=${version_parts[2]}
 
               # Increment the minor version
-              minor=$((minor + 1))
+              local minor=$((minor + 1))
 
               # Update the version string
               VERSION="$major.$minor.$patch"
