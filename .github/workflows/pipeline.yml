@@ -75,7 +75,7 @@ jobs:
               # Update the version string
               VERSION="$major.$minor.$patch"
 
-              return VERSION
+              echo VERSION
             }
 
             accountHistoryContactVersion=$(getNewVersionBYContract ${{vars.AH_CONTRACT_ADDRESS}})
